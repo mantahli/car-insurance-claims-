@@ -1,3 +1,12 @@
+/*updating the claim  response*/
+
+data work.insurance;
+set work.insurance ;
+modify insurance;
+response=1;
+where id =4;
+proc print data=work.insurance(obs=5);run;
+
 PROC sql;
 create table car_insurance as 
 select * from  work.insurance;
