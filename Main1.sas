@@ -31,3 +31,34 @@ run;
 DATA WORK.MY_FILTERED_DATA;
 SET work.Case_statement (WHERE=(response = 1));
 RUN;
+
+/* showing Claims by Region*/
+
+%let TopN = 10; /* This macro does'nt work*/ 
+proc freq data=WORK.INSURANCE order=freq;
+   tables Response*Region_Code / maxlevels=&TopN
+       plots=freqplot(twoway=stacked);
+run;
+/*  Checking which gender claims more  */
+proc sgplot data=WORK.INSURANCE;
+title 'Gender By Number of Claims';
+	vbar Gender / group=Response groupdisplay=cluster;
+	yaxis grid;
+run;
+/* Checking which age group Claims more and gets More Appproved */
+proc sgplot data=WORK.CASE_STATEMENT;
+title 'Age Group  By Number of Claims';
+	vbar age_group / group=Response groupdisplay=cluster;
+	yaxis grid;
+run;
+/*  */
+proc sgplot data=WORK.CASE_STATEMENT;
+title 'Vehicle Age   By Number of Claims';
+	vbar Vehicle_Age / group=Response groupdisplay=cluster;
+	yaxis grid;
+run;
+proc sgplot data=WORK.CASE_STATEMENT;
+title 'Previously_Insured   By Number of Claims';
+	vbar Previously_Insured / group=Response groupdisplay=cluster;
+	yaxis grid;
+run;
