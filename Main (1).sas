@@ -1,3 +1,21 @@
+/*Importing dataset  and rrenaming it insurance*/
+
+%web_drop_table(WORK.insurance);
+
+
+FILENAME REFFILE '/home/u62791191/car insurance/_car-insurance claim.csv';
+
+PROC IMPORT DATAFILE=REFFILE
+	DBMS=CSV
+	OUT=WORK.insurance;
+	GETNAMES=YES;
+RUN;
+
+PROC CONTENTS DATA=WORK.insurance; RUN;
+
+
+%web_open_table(WORK.insurance);
+
 
 /*show 5 observations*/
 
@@ -50,7 +68,7 @@ run;
 title'Claims By Sales Channel';
 proc freq data=WORK.INSURANCE order=freq;
    tables  response*Policy_Sales_Channel/ maxlevels = &TopN 
-    plots=freqplot;
+    plots=freqplot(towway=stacked);
        
 run;*/
 proc template;
