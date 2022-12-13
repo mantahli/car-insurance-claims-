@@ -1,3 +1,4 @@
+
 /*Importing dataset  and rrenaming it insurance*/
 
 %web_drop_table(WORK.insurance);
@@ -15,6 +16,15 @@ PROC CONTENTS DATA=WORK.insurance; RUN;
 
 
 %web_open_table(WORK.insurance);
+
+/*Searching for those with approved claims*/
+%macro search(response=);
+proc print data=work.insurance(obs=20);
+where response=&response;
+run;
+%mend search;
+%search(response=1);
+
 
 
 /*show 5 observations*/
